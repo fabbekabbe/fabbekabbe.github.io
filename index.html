@@ -5,9 +5,13 @@
     <button type="button" id="mdisplay" onclick="onMoneyClick()">Make Money</button>
     <button type="button" id="generator_1" onclick="onUpgradeClick(generator, 1)">Generator\n$100</button>
     <script>
+      var update_interval = 50;
+      
       var money = 0;
       var increase = 1;
       var per_second = 0;
+      
+      var generator_1_unlocked = true;
       
       var mdisplay = document.getElementById("mdisplay");
       mdisplay.style.display = "block";
@@ -32,7 +36,12 @@
       }
       
       while (true) {
-        // do stuff
+        if (generator_1_unlocked && money >= 100) {
+          generator_1.style.display = "block";
+          generator_1_unlocked = false;
+        }
+        
+        sleep(1000/update_interval);
       }
       
     </script>

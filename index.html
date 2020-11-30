@@ -2,7 +2,7 @@
 <html>
   <body>
     <h1 id="mdisplay">0</h1>
-    <button type="button" id="mdisplay" onclick="onMoneyClick()">Make Money</button>
+    <button type="button" id="click_button" onclick="onMoneyClick()">Make Money</button>
     <button type="button" id="generator_1" onclick="onUpgradeClick(generator, 1)">Generator\n$100</button>
     <script>
       var update_interval = 50;
@@ -42,6 +42,10 @@
         }
         
         sleep(1000/update_interval);
+      }
+      
+      function sleep(time) {
+        return new Promise((resolve) => setTimeout(resolve, time));
       }
       
     </script>

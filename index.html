@@ -35,14 +35,14 @@
         }
       }
       
-      do {
+      setInterval(onTimerTick, update_interval);
+      
+      function onTimerTick() {
         if (generator_1_unlocked && money >= 100) {
           generator_1.style.display = "block";
           generator_1_unlocked = false;
         }
-        
-        sleep(1000/update_interval);
-      } while (true)
+      }
       
       function sleep(time) {
         return new Promise((resolve) => setTimeout(resolve, time));

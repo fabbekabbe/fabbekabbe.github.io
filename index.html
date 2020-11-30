@@ -1,7 +1,40 @@
 <!DOCTYPE html>
 <html>
-<body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
-</body>
+  <body>
+    <h1 id="mdisplay">0</h1>
+    <button type="button" id="mdisplay" onclick="onMoneyClick()">Make Money</button>
+    <button type="button" id="generator_1" onclick="onUpgradeClick(generator, 1)">Generator\n$100</button>
+    <script>
+      var money = 0;
+      var increase = 1;
+      var per_second = 0;
+      
+      var mdisplay = document.getElementById("mdisplay");
+      mdisplay.style.display = "block";
+      mdisplay.innerHTML = "$" + money;
+      
+      var generator_1 = document.getElementById("generator_1");
+      generator_1.style.display = "none";
+      
+      function onMoneyClick() {
+        money = money + increase;
+        mdisplay.innerHTML = "$" + money;
+      }
+      
+      function onUpgradeClick(type, index) {
+        if (type == "generator") {
+          if (index == 1) {
+            if (money >= 100) {
+              per_second = per_second + 0.1;
+            }
+          }
+        }
+      }
+      
+      while (true) {
+        // do stuff
+      }
+      
+    </script>
+  </body>
 </html>

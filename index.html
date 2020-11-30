@@ -1,53 +1,81 @@
 <!DOCTYPE html>
 <html>
-  <body>
-    <h1 id="mdisplay">0</h1>
-    <button type="button" id="click_button" onclick="onMoneyClick()">Make Money</button>
-    <button type="button" id="generator_1" onclick="onUpgradeClick(generator, 1)">Generator\n$100</button>
-    <script>
-      var update_interval = 50;
-      
-      var money = 0;
-      var increase = 1;
-      var per_second = 0;
-      
-      var generator_1_unlocked = true;
-      
-      var mdisplay = document.getElementById("mdisplay");
-      mdisplay.style.display = "block";
-      mdisplay.innerHTML = "$" + money;
-      
-      var generator_1 = document.getElementById("generator_1");
-      generator_1.style.display = "none";
-      
-      function onMoneyClick() {
-        money = money + increase;
-        mdisplay.innerHTML = "$" + money;
-      }
-      
-      function onUpgradeClick(type, index) {
-        if (type == "generator") {
-          if (index == 1) {
-            if (money >= 100) {
-              per_second = per_second + 0.1;
+    <body>
+        <h1 id="mdisplay">0</h1>
+        <button type="button" id="click_button" onclick="onMoneyClick()">Make Money</button>
+        <button type="button" id="generator_1" onclick="onUpgradeClick('generator', 1)">Generator - $NaN</button>
+        <script>
+            
+            var player = {
+            update_interval: 20,
+
+            money: 0,
+            increase: 1,
+            per_second: 0,
+            
+            generator_1_unlocked: false,
+            generator_1_cost: 10,
+            generator_1_effect: 0.1,
+            generator_1_bought: 0,
+
+            generator_2_unlocked: false,
+
+            generator_3_unlocked: false,
+
+            generator_4_unlocked: false,
+
+            generator_5_unlocked: false,
+
             }
-          }
-        }
-      }
-      
-      setInterval(onTimerTick, update_interval);
-      
-      function onTimerTick() {
-        if (generator_1_unlocked && money >= 100) {
-          generator_1.style.display = "block";
-          generator_1_unlocked = false;
-        }
-      }
-      
-      function sleep(time) {
-        return new Promise((resolve) => setTimeout(resolve, time));
-      }
-      
-    </script>
-  </body>
+            
+            var mdisplay = document.getElementById("mdisplay");
+            mdisplay.style.display = "block";
+            mdisplay.innerHTML = "$" + player.money;
+            
+            var generator_1 = document.getElementById("generator_1");
+            generator_1.style.display = "none";
+            generator_1.innerHTML = "Generator - $" + player.generator_1_cost;
+            
+            function onMoneyClick() {
+                player.money = player.money + player.increase;
+                mdisplay.innerHTML = "$" + player.money;
+            }
+            
+            function onUpgradeClick(type, index) {
+                if (type == "generator") {
+                    if (index == 1) {
+                        if (player.money >= player.generator_1_cost) {
+                            player.per_second = player.per_second + player.generator_1_effect;
+                        }
+                    }
+                }
+            }
+            
+            setInterval(onTimerTick, player.update_interval);
+            
+            var tick = 0;
+
+            function onTimerTick() {
+                player.money = Math.round(player.money * 10) / 10;
+                mdisplay.innerHTML = "$" + player.money;
+
+                var max_tick = ((1000/player.update_interval) / player.per_second) / 10;
+                tick++;
+                if (tick >= max_tick) {
+                    tick = 0;
+                    player.money = player.money + player.per_second / ((1000 / player.update_interval) / max_tick);
+                }
+
+                if (player.generator_1_unlocked == false && player.money >= player.generator_1_cost) {
+                    generator_1.style.display = "block";
+                    player.generator_1_unlocked = true;
+                }
+            }
+            
+            function sleep(time) {
+                return new Promise((resolve) => setTimeout(resolve, time));
+            }
+            
+        </script>
+    </body>
 </html>

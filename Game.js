@@ -1,5 +1,5 @@
 var player = {
-    update_interval: 20,
+    update_interval: 10,
 
     money: 0,
     increase: 1,
@@ -53,8 +53,8 @@ var tick = 0;
 function onTimerTick() {
     player.money = Math.round(player.money * 10) / 10;
     mdisplay.innerHTML = "$" + player.money;
-    console.log(tick, max_tick);
     var max_tick = ((1000/player.update_interval) / player.per_second) / 10;
+    console.log(tick, max_tick);
     tick++;
     if (tick >= max_tick) {
         tick = 0;

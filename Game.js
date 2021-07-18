@@ -38,8 +38,8 @@ function onUpgradeClick(type, index) {
         if (index == 1) {
             if (player.money >= player.generator_1_cost) {
                 player.per_second = player.per_second + player.generator_1_effect;
-                player.money = player.money - player.generator_1_cost
-                player.generator_1_bought = player.generator_1_bought + 1
+                player.money = player.money - player.generator_1_cost;
+                player.generator_1_bought = player.generator_1_bought + 1;
                 generator_1.innerHTML = "[" + player.generator_1_bought + "] Generator - $" + player.generator_1_cost;
             }
         }
@@ -53,7 +53,7 @@ var tick = 0;
 function onTimerTick() {
     player.money = Math.round(player.money * 10) / 10;
     mdisplay.innerHTML = "$" + player.money;
-
+    console.log(tick, max_tick);
     var max_tick = ((1000/player.update_interval) / player.per_second) / 10;
     tick++;
     if (tick >= max_tick) {
